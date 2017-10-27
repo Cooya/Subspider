@@ -1,0 +1,15 @@
+{
+  "name": "subspider",
+  "version": "1.0.0",
+  "description": "Web scraper for collect subtitles",
+  "main": "app/subspider/main.js",
+  "scripts": {
+    "start": "tsc -p tsconfig.json && node app/subspider/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Coya",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2"
+  }
+}
