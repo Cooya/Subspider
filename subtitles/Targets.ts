@@ -1,8 +1,13 @@
 import {Subtitle, MovieSubtitle, SerieSubtitle} from './Structures.js';
 import {Target} from '../Structures.js';
 
+const YIFY_URL = 'www.yifysubtitles.com';
+const TV_SUBS_URL = 'www.tv-subs.com';
+const TVSUBS_URl = 'www.tvsubs.net';
+const OPEN_SUBS_URL = 'www.opensubtitles.org';
+
 export let targets = [
-	new Target('www.yifysubtitles.com', true, [
+	new Target(YIFY_URL, true, [
 		{
 			prefixUrl: 'http://www.yifysubtitles.com/subtitles/x-',
 			suffixUrl: '',
@@ -27,12 +32,13 @@ export let targets = [
 				if(movie == '') // Agoraphobia
 					return null;
 
-				process.stdout.write('\r\x1b[K' + index + ' - ' + movie + ' - ' + language);
-				return new MovieSubtitle(this.hostname, index, release, file, language, movie);
+				//process.stdout.write('\r\x1b[K' + index + ' - ' + movie + ' - ' + language);
+				console.log(index + ' - ' + movie + ' - ' + language);
+				return new MovieSubtitle(YIFY_URL, index, release, file, language, movie);
 			}
 		}
 	]),
-	new Target('www.tv-subs.com', true, [
+	new Target(TV_SUBS_URL, true, [
 		{
 			prefixUrl: 'http://www.tv-subs.com/subtitles/x-',			
 			suffixUrl: '',
@@ -56,11 +62,11 @@ export let targets = [
 				var episode = parseInt($('div.sub-info:nth-child(2) > span:nth-child(1)').text());
 
 				process.stdout.write('\r\x1b[K' + index + ' - ' + serie + ' - ' + language);
-				return new SerieSubtitle(this.hostname, index, release, file, language, serie, season, episode);
+				return new SerieSubtitle(TV_SUBS_URL, index, release, file, language, serie, season, episode);
 			}
 		}
 	]),
-	new Target('www.tvsubs.net', true, [
+	new Target(TVSUBS_URl, true, [
 		{
 			prefixUrl: 'http://www.tvsubs.net/subtitle-',
 			suffixUrl: '.html',
@@ -81,11 +87,11 @@ export let targets = [
 				var episode = parseInt($('ul.list2:nth-child(3) > li:nth-child(5) > a:nth-child(2)').text().split(' - ')[0]);
 
 				process.stdout.write('\r\x1b[K' + index + ' - ' + serie + ' - ' + language);
-				return new SerieSubtitle(this.hostname, index, release, file, language, serie, season, episode);
+				return new SerieSubtitle(TVSUBS_URl, index, release, file, language, serie, season, episode);
 			}
 		}
 	]),
-	new Target('www.opensubtitles.org', true, [
+	new Target(OPEN_SUBS_URL, true, [
 		{
 			prefixUrl: 'https://www.opensubtitles.org/en/subtitles/',
 			suffixUrl: '',
@@ -114,7 +120,7 @@ export let targets = [
 					var episode = parseInt($('span[itemProp="episodeNumber"]'));
 
 					process.stdout.write('\r\x1b[K' + index + ' - ' + serie + ' - ' + language);
-					return new SerieSubtitle(this.hostname, index, release, file, language, serie, season, episode);
+					return new SerieSubtitle(OPEN_SUBS_URL, index, release, file, language, serie, season, episode);
 				}
 			}
 		}

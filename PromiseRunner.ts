@@ -11,24 +11,28 @@ export class PromiseRunner {
 	}
 
 	static scheduler(action: Function, nbThreads: number, index: number) {
-		let error = false;
+		return new Promise(function(resolve, reject) {
+			let error = false;
 
-		var loop = function() {
-			return action(index++)
-			.then(function(isEnd) {
-				if(!error && !isEnd) return loop();
-			})
-			.catch(function(err) {
-				error = true;
-				return err;
-			});
-		};
+			var loop = function() {
+				return action(index++)
+				.then(function(isEnd) {
+					if(!error && !isEnd) return loop();
+				})
+				.catch(function(err) {
+					if(!error) {
+						error = true;
+						reject(err);
+					}
+				});
+			};
 
-		var promises = [];
-		for(var i = 0; i < nbThreads; ++i)
-			promises.push(loop());
+			var promises = [];
+			for(var i = 0; i < nbThreads; ++i)
+				promises.push(loop());
 
-		return Promise.all(promises);	
+			Promise.all(promises).then(resolve);
+		});
 	}
 
 	static sendRequest(url: string) {

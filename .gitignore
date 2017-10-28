@@ -1,1 +1,3 @@
 node_modules/
+app/
+db_credentials.js
