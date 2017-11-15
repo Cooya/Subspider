@@ -11,7 +11,7 @@ process.env.SERVER_LOGS_FILE = __dirname  + '/logs.html';
 // Core dependencies
 import {Target, Step} from './Structures.js';
 import {PromiseRunner} from './PromiseRunner.js';
-import Database = require('../server_modules/database');
+import Database = require('@coya/database');
 
 // Extension dependencies
 import {targets} from './subtitles/targets.js';
@@ -106,6 +106,8 @@ class Processor {
 					destCollection = COLLECTION_PREFIX + currentStep.switcher(result);
 					if(!destCollection)
 						return Promise.reject('None collection returned.');
+
+					console.log(result);
 
 					// insertion des données dans la base de données
 					pageIndex = pageIndex - NB_THREADS * 2 > 0 ? pageIndex - NB_THREADS * 2 : 0;
