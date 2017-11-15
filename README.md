@@ -1,3 +1,15 @@
-# README #
+# Subspider
 
-For run, the project requires a database credentials file "db_credentials.js" and my MongoDB overlay module.
+## Installation
+* Start MongoDB server on the machine
+* "npm install" in the root folder of the project
+* Create and complete "db_credentials.js" file as follows :
+```javascript
+module.exports = {
+	"database": "",
+	"login": "",
+	"password": ""
+};
+```
+* The typescript compiler ("tsc") must be installed in global on your machine
+* npm start" for compile typescript and run the script
